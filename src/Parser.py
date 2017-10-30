@@ -1,3 +1,4 @@
+from Game import Game
 from Group import Group
 
 EMPTY_CELL_STR = '#'
@@ -65,6 +66,7 @@ def parse_field(filename):
     return field, m, n, mines
 
 
-def parse_groups(filename):
-    field, m, n, _ = parse_field(filename)
-    return get_groups(field, m, n)
+def parse_game(filename):
+    field, m, n, mines = parse_field(filename)
+    groups = get_groups(field, m, n)
+    return Game(field, m, n, groups, mines)
