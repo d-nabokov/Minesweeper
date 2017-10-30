@@ -9,5 +9,8 @@ class Group:
     def __repr__(self):
         return self.__str__()
 
+    def size(self):
+        return len(self.cells)
+
 
 
