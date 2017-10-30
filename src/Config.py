@@ -2,3 +2,5 @@ EMPTY_CELL_STR = '#'
 EMPTY_CELL = -1
 
 SEP = ' '
+
+DELTA = 0.01

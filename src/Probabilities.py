@@ -1,7 +1,5 @@
 import Config
 
-DELTA = 0.01
-
 
 def sum_ind(a, b):
     return 1 - (1 - a) * (1 - b)
@@ -28,7 +26,7 @@ def correct_probs(probs, groups):
         for group in groups:
             s = sum(probs[cell] for cell in group.cells)
             print('diff: {}, sum = {}, expected {}'.format(abs(s - group.w), s, group.w))
-            if not abs(s - group.w) < DELTA:
+            if not abs(s - group.w) < Config.DELTA:
                 changed = True
                 k = group.w / s
                 for cell in group.cells:
