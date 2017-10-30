@@ -63,3 +63,8 @@ def parse_field(filename):
                 # TODO check flags, add mines_left
 
     return field, m, n, mines
+
+
+def parse_groups(filename):
+    field, m, n, _ = parse_field(filename)
+    return get_groups(field, m, n)

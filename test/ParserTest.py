@@ -30,8 +30,7 @@ class ParserTest(unittest.TestCase):
                 self.assertEqual(Parser.EMPTY_CELL, field[i][j])
 
     def test_get_groups(self):
-        field, m, n, _ = Parser.parse_field('input1')
-        groups = Parser.get_groups(field, m, n)
+        groups = Parser.parse_groups('input1')
 
         group = groups[0]
         cells = {(0, 0), (0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 2)}
