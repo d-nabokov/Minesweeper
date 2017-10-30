@@ -1,16 +1,12 @@
+import Config
 from Game import Game
 from Group import Group
-
-EMPTY_CELL_STR = '#'
-EMPTY_CELL = -1
-
-SEP = ' '
 
 
 def create_group(field, area, w):
     cells = set()
     for i, j in area:
-        if field[i][j] == EMPTY_CELL:
+        if field[i][j] == Config.EMPTY_CELL:
             cells.add((i, j))
         # TODO subtract weight
 
@@ -45,17 +41,17 @@ def get_groups(field, m, n):
 def parse_field(filename):
     with open(filename, 'rt') as fin:
         first_line = fin.readline()
-        m, n, mines = map(lambda x: int(x), first_line.strip().split(SEP))
+        m, n, mines = map(lambda x: int(x), first_line.strip().split(Config.SEP))
         # TODO check if ok
         field = [None] * m
         for i in range(m):
-            field[i] = [EMPTY_CELL] * n
+            field[i] = [Config.EMPTY_CELL] * n
         for i in range(m):
-            cells = fin.readline().strip().split(SEP, n)
+            cells = fin.readline().strip().split(Config.SEP, n)
             # TODO check size
             for j in range(n):
                 cell = cells[j]
-                if cell == EMPTY_CELL_STR:
+                if cell == Config.EMPTY_CELL_STR:
                     continue
                 elif cell.isdecimal():
                     num = int(cell)

@@ -1,3 +1,5 @@
+import Config
+
 DELTA = 0.01
 
 
@@ -52,6 +54,9 @@ def print_probs(probs, game):
             if (i, j) in probs:
                 print('{0:6.2f}'.format(probs[(i, j)]), end='')
             else:
-                print('{0:3d}(с)'.format(game.field[i][j]), end='')
+                if game.field[i][j] > 0:
+                    print('{0:3d}(с)'.format(game.field[i][j]), end='')
+                else:
+                    print('{0:>6}'.format(Config.EMPTY_CELL_STR), end='')
 
         print('\n', end='')

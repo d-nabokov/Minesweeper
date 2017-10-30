@@ -1,4 +1,6 @@
 import unittest
+
+import Config
 import Parser
 
 
@@ -23,11 +25,11 @@ class ParserTest(unittest.TestCase):
 
         for i in (0, 3):
             for j in range(3):
-                self.assertEqual(Parser.EMPTY_CELL, field[i][j])
+                self.assertEqual(Config.EMPTY_CELL, field[i][j])
 
         for i in (1, 2):
             for j in (0, 2):
-                self.assertEqual(Parser.EMPTY_CELL, field[i][j])
+                self.assertEqual(Config.EMPTY_CELL, field[i][j])
 
     def test_get_groups(self):
         groups = Parser.parse_game('inputs/input1').groups
