@@ -16,12 +16,12 @@ class ParserTest(unittest.TestCase):
         self.assertEqual(third, Parser.get_area(3, 2, 4, 3))
 
     def test_parse(self):
-        field, m, n, _ = Parser.parse_field('inputs/input1')
+        field, m, n, _ = Parser.parse_field('inputs/001')
         self.assertEqual(4, m)
         self.assertEqual(3, n)
 
         self.assertEqual(4, field[1][1])
-        self.assertEqual(2, field[2][1])
+        self.assertEqual(3, field[2][1])
 
         for i in (0, 3):
             for j in range(3):
@@ -32,7 +32,7 @@ class ParserTest(unittest.TestCase):
                 self.assertEqual(Config.EMPTY_CELL, field[i][j])
 
     def test_get_groups(self):
-        groups = Parser.parse_game('inputs/input1').groups
+        groups = Parser.parse_game('inputs/001').groups
 
         group = groups[0]
         cells = {(0, 0), (0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 2)}
@@ -41,5 +41,5 @@ class ParserTest(unittest.TestCase):
 
         group = groups[1]
         cells = {(1, 0), (1, 2), (2, 0), (2, 2), (3, 0), (3, 1), (3, 2)}
-        self.assertEqual(2, group.w)
+        self.assertEqual(3, group.w)
         self.assertEqual(cells, group.cells)
