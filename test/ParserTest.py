@@ -57,7 +57,7 @@ class ParserTest(unittest.TestCase):
         self.assertEqual(2, group.w)
         self.assertEqual(cells, group.cells)
 
-    def test_get_groups_with_empty_groups(self):
+    def test_dont_add_groups_with_no_empty_cells(self):
         groups = Parser.parse_game('inputs/004').groups
 
         self.assertEqual(7, len(groups))
