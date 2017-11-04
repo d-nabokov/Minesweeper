@@ -43,3 +43,16 @@ class ParserTest(unittest.TestCase):
         cells = {(1, 0), (1, 2), (2, 0), (2, 2), (3, 0), (3, 1), (3, 2)}
         self.assertEqual(3, group.w)
         self.assertEqual(cells, group.cells)
+
+    def test_get_groups_with_mines(self):
+        groups = Parser.parse_game('inputs/002').groups
+
+        group = groups[0]
+        cells = {(0, 0), (0, 1), (0, 2), (1, 0), (2, 0), (2, 2)}
+        self.assertEqual(3, group.w)
+        self.assertEqual(cells, group.cells)
+
+        group = groups[1]
+        cells = {(1, 0), (2, 0), (2, 2), (3, 0), (3, 1), (3, 2)}
+        self.assertEqual(2, group.w)
+        self.assertEqual(cells, group.cells)

@@ -8,7 +8,8 @@ def create_group(field, area, w):
     for i, j in area:
         if field[i][j] == Config.EMPTY_CELL:
             cells.add((i, j))
-        # TODO subtract weight
+        elif field[i][j] == Config.MINE:
+            w -= 1
 
     return Group(cells, w)
 
@@ -57,7 +58,9 @@ def parse_field(filename):
                     num = int(cell)
                     # TODO check 1-8
                     field[i][j] = num
-                # TODO check flags, add mines_left
+                elif cell == Config.MINE_STR:
+                    field[i][j] = Config.MINE
+                # TODO add mines_left
 
     return field, m, n, mines
 
