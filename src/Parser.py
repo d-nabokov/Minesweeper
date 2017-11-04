@@ -11,7 +11,9 @@ def create_group(field, area, w):
         elif field[i][j] == Config.MINE:
             w -= 1
 
-    return Group(cells, w)
+    # TODO check w for >= 0
+
+    return Group(cells, w) if len(cells) > 0 else None
 
 
 def get_area(x, y, m, n):
@@ -34,7 +36,8 @@ def get_groups(field, m, n):
         for j in range(n):
             if field[i][j] > 0:
                 g = create_group(field, get_area(i, j, m, n), field[i][j])
-                groups.append(g)
+                if g is not None:
+                    groups.append(g)
 
     return groups
 

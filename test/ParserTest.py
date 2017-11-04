@@ -56,3 +56,8 @@ class ParserTest(unittest.TestCase):
         cells = {(1, 0), (2, 0), (2, 2), (3, 0), (3, 1), (3, 2)}
         self.assertEqual(2, group.w)
         self.assertEqual(cells, group.cells)
+
+    def test_get_groups_with_empty_groups(self):
+        groups = Parser.parse_game('inputs/004').groups
+
+        self.assertEqual(7, len(groups))
