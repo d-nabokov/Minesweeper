@@ -1,7 +1,7 @@
 import Config
 
 
-def sum_ind(a, b):
+def __sum_ind(a, b):
     return 1 - (1 - a) * (1 - b)
 
 
@@ -11,7 +11,7 @@ def get_raw_probs(groups):
         for cell in group.cells:
             prob = group.w / group.size()
             if cell in probs:
-                probs[cell] = sum_ind(probs[cell], prob)
+                probs[cell] = __sum_ind(probs[cell], prob)
             else:
                 probs[cell] = prob
 

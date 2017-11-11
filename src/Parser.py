@@ -3,7 +3,7 @@ from Game import Game
 from Group import Group
 
 
-def create_group(field, area, w):
+def __create_group(field, area, w):
     cells = set()
     for i, j in area:
         if field[i][j] == Config.EMPTY_CELL:
@@ -30,12 +30,12 @@ def get_area(x, y, m, n):
     return area
 
 
-def get_groups(field, m, n):
+def __get_groups(field, m, n):
     groups = []
     for i in range(m):
         for j in range(n):
             if field[i][j] > 0:
-                g = create_group(field, get_area(i, j, m, n), field[i][j])
+                g = __create_group(field, get_area(i, j, m, n), field[i][j])
                 if g is not None:
                     groups.append(g)
 
@@ -70,5 +70,5 @@ def parse_field(filename):
 
 def parse_game(filename):
     field, m, n, mines = parse_field(filename)
-    groups = get_groups(field, m, n)
+    groups = __get_groups(field, m, n)
     return Game(field, m, n, groups, mines)

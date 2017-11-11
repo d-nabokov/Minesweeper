@@ -11,6 +11,3 @@ class Group:
 
     def size(self):
         return len(self.cells)
-
-
-

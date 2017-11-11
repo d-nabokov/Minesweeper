@@ -5,4 +5,3 @@ class Game:
         self.n = n
         self.groups = groups
         self.mines = mines
-
