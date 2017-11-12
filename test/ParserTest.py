@@ -2,6 +2,7 @@ import unittest
 
 import Config
 import Parser
+from Group import Group
 
 
 class ParserTest(unittest.TestCase):
@@ -25,39 +26,44 @@ class ParserTest(unittest.TestCase):
 
         for i in (0, 3):
             for j in range(3):
-                self.assertEqual(Config.EMPTY_CELL, field[i][j])
+                self.assertEqual(Config.UNOPENED_CELL, field[i][j])
 
         for i in (1, 2):
             for j in (0, 2):
-                self.assertEqual(Config.EMPTY_CELL, field[i][j])
+                self.assertEqual(Config.UNOPENED_CELL, field[i][j])
 
     def test_get_groups(self):
+        expected = [
+            Group({(0, 0), (0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 2)}, 4),
+            Group({(1, 0), (1, 2), (2, 0), (2, 2), (3, 0), (3, 1), (3, 2)}, 3)
+        ]
+
         groups = Parser.parse_game('inputs/001').groups
-
-        group = groups[0]
-        cells = {(0, 0), (0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 2)}
-        self.assertEqual(4, group.w)
-        self.assertEqual(cells, group.cells)
-
-        group = groups[1]
-        cells = {(1, 0), (1, 2), (2, 0), (2, 2), (3, 0), (3, 1), (3, 2)}
-        self.assertEqual(3, group.w)
-        self.assertEqual(cells, group.cells)
+        self.assertEqual(expected, groups)
 
     def test_get_groups_with_mines(self):
+        expected = [
+            Group({(0, 0), (0, 1), (0, 2), (1, 0), (2, 0), (2, 2)}, 3),
+            Group({(1, 0), (2, 0), (2, 2), (3, 0), (3, 1), (3, 2)}, 2)
+        ]
+
         groups = Parser.parse_game('inputs/002').groups
+        self.assertEqual(expected, groups)
 
-        group = groups[0]
-        cells = {(0, 0), (0, 1), (0, 2), (1, 0), (2, 0), (2, 2)}
-        self.assertEqual(3, group.w)
-        self.assertEqual(cells, group.cells)
-
-        group = groups[1]
-        cells = {(1, 0), (2, 0), (2, 2), (3, 0), (3, 1), (3, 2)}
-        self.assertEqual(2, group.w)
-        self.assertEqual(cells, group.cells)
-
-    def test_dont_add_groups_with_no_empty_cells(self):
+    def test_ignore_groups_without_unopened_cells(self):
         groups = Parser.parse_game('inputs/004').groups
 
         self.assertEqual(7, len(groups))
+
+    def test_ignore_empty_cells(self):
+        expected_first_five = [
+            Group({(0, 0), (1, 0), (2, 0), (0, 1), (0, 2)}, 3),
+            Group({(0, 1), (0, 2), (0, 3)}, 2),
+            Group({(0, 2), (0, 3), (0, 4)}, 2),
+            Group({(0, 3), (0, 4), (0, 5)}, 1),
+            Group({(0, 4), (0, 5), (0, 6), (1, 6), (2, 6)}, 3),
+        ]
+
+        groups = Parser.parse_game('inputs/005').groups
+        self.assertEqual(expected_first_five, groups[0:5])
+

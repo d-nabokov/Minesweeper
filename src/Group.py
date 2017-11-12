@@ -11,3 +11,6 @@ class Group:
 
     def size(self):
         return len(self.cells)
+
+    def __eq__(self, other):
+        return self.w == other.w and self.cells == other.cells

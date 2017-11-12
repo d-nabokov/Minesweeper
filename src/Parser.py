@@ -6,10 +6,13 @@ from Group import Group
 def __create_group(field, area, w):
     cells = set()
     for i, j in area:
-        if field[i][j] == Config.EMPTY_CELL:
+        if field[i][j] == Config.UNOPENED_CELL:
             cells.add((i, j))
         elif field[i][j] == Config.MINE:
             w -= 1
+        # TODO remove?
+        elif field[i][j] == Config.EMPTY_CELL:
+            continue
 
     # TODO check w for >= 0
 
@@ -49,20 +52,22 @@ def parse_field(filename):
         # TODO check if ok
         field = [None] * m
         for i in range(m):
-            field[i] = [Config.EMPTY_CELL] * n
+            field[i] = [Config.UNOPENED_CELL] * n
         for i in range(m):
             cells = fin.readline().strip().split(Config.SEP, n)
             # TODO check size
             for j in range(n):
                 cell = cells[j]
-                if cell == Config.EMPTY_CELL_STR:
+                if cell == Config.UNOPENED_CELL_STR:
                     continue
+                elif cell == Config.EMPTY_CELL_STR:
+                    field[i][j] = Config.EMPTY_CELL
+                elif cell == Config.MINE_STR:
+                    field[i][j] = Config.MINE
                 elif cell.isdecimal():
                     num = int(cell)
                     # TODO check 1-8
                     field[i][j] = num
-                elif cell == Config.MINE_STR:
-                    field[i][j] = Config.MINE
                 # TODO add mines_left
 
     return field, m, n, mines

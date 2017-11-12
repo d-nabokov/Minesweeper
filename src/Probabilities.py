@@ -55,8 +55,8 @@ def print_probs(probs, game):
                 cell = game.field[i][j]
                 if cell > 0:
                     print('{0:3d}(d)'.format(game.field[i][j]), end='')
-                elif cell == Config.EMPTY_CELL:
-                    print('{0:>6}'.format(Config.EMPTY_CELL_STR), end='')
+                elif cell == Config.UNOPENED_CELL:
+                    print('{0:>6}'.format(Config.UNOPENED_CELL_STR), end='')
                 elif cell == Config.MINE:
                     print('{0:>6}'.format(Config.MINE_STR), end='')
 
