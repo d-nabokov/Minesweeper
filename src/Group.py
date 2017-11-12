@@ -17,7 +17,7 @@ class Group:
 
     def subtract(self, other):
         self.w -= other.w
-        self.cells = self.cells.difference(other.cells)
+        self.cells -= other.cells
 
     def all_mines(self):
         return len(self.cells) == self.w

@@ -25,7 +25,6 @@ def correct_probs(probs, groups):
         changed = False
         for group in groups:
             s = sum(probs[cell] for cell in group.cells)
-            print('diff: {}, sum = {}, expected {}'.format(abs(s - group.w), s, group.w))
             if not abs(s - group.w) < Config.DELTA:
                 changed = True
                 k = group.w / s
@@ -34,10 +33,6 @@ def correct_probs(probs, groups):
 
         if not changed:
             break
-
-        print('*************')
-
-    print('algorithm did {} cycles for {} groups'.format(cycles, len(groups)))
 
 
 def get_probs(game):

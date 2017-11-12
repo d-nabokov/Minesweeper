@@ -66,4 +66,3 @@ class ParserTest(unittest.TestCase):
 
         groups = Parser.parse_game('inputs/005').groups
         self.assertEqual(expected_first_five, groups[0:5])
-

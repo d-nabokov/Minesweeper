@@ -8,8 +8,5 @@ class ProbabilitiesTest(unittest.TestCase):
         game = Parser.parse_game('inputs/004')
 
         probs = Probabilities.get_raw_probs(game.groups)
-        Probabilities.print_probs(probs, game)
-
         Probabilities.correct_probs(probs, game.groups)
-        Probabilities.print_probs(probs, game)
-
+        # TODO add tests for probability
