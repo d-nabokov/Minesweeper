@@ -9,8 +9,18 @@ class Group:
     def __repr__(self):
         return self.__str__()
 
+    def __eq__(self, other):
+        return self.w == other.w and self.cells == other.cells
+
     def size(self):
         return len(self.cells)
 
-    def __eq__(self, other):
-        return self.w == other.w and self.cells == other.cells
+    def subtract(self, other):
+        self.w -= other.w
+        self.cells = self.cells.difference(other.cells)
+
+    def all_mines(self):
+        return len(self.cells) == self.w
+
+    def all_not_mines(self):
+        return self.w == 0
