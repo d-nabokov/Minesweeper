@@ -9,4 +9,4 @@ MINE = -3
 
 SEP = ' '
 
-DELTA = 0.01
+EPS = 0.01

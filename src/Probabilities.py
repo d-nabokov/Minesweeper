@@ -19,13 +19,11 @@ def get_raw_probs(groups):
 
 
 def correct_probs(probs, groups):
-    cycles = 0
     while True:
-        cycles += 1
         changed = False
         for group in groups:
             s = sum(probs[cell] for cell in group.cells)
-            if not abs(s - group.w) < Config.DELTA:
+            if not abs(s - group.w) < Config.EPS:
                 changed = True
                 k = group.w / s
                 for cell in group.cells:
@@ -35,9 +33,9 @@ def correct_probs(probs, groups):
             break
 
 
-def get_probs(game):
-    probs = get_raw_probs(game.groups)
-    correct_probs(probs, game.groups)
+def get_probs(groups):
+    probs = get_raw_probs(groups)
+    correct_probs(probs, groups)
     return probs
 
 
