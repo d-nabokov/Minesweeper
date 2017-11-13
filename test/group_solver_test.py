@@ -1,15 +1,15 @@
 import unittest
 
-import GroupSolver
-import Parser
-from Group import Group
+import groups_solver
+import parser
+from group import Group
 
 
 class GroupSolverTest(unittest.TestCase):
     def test_equal_groups(self):
         g = Group({1, 2, 3}, 2)
         groups = [g, g]
-        GroupSolver.operate_groups(groups)
+        groups_solver.operate_groups(groups)
 
         self.assertEqual(1, len(groups))
         self.assertEqual(g, groups[0])
@@ -18,7 +18,7 @@ class GroupSolverTest(unittest.TestCase):
         g1 = Group({1, 2}, 1)
         g2 = Group({1, 2, 3}, 1)
         groups = [g1, g2]
-        GroupSolver.operate_groups(groups)
+        groups_solver.operate_groups(groups)
 
         self.assertEqual(2, len(groups))
 
@@ -34,7 +34,7 @@ class GroupSolverTest(unittest.TestCase):
         g1 = Group({1, 2, 3}, 1)
         g2 = Group({2, 3, 4, 5}, 3)
         groups = [g1, g2]
-        GroupSolver.operate_groups(groups)
+        groups_solver.operate_groups(groups)
 
         self.assertEqual(3, len(groups))
 
@@ -56,7 +56,7 @@ class GroupSolverTest(unittest.TestCase):
         g3 = Group({5, 6}, 0)
         g4 = Group({7, 8, 9}, 2)
 
-        mines, not_mines = GroupSolver.get_reliable_cells([g1, g2, g3, g4])
+        mines, not_mines = groups_solver.get_reliable_cells([g1, g2, g3, g4])
 
         self.assertEqual(3, len(mines))
         self.assertEqual(g1.cells, mines)
@@ -65,15 +65,15 @@ class GroupSolverTest(unittest.TestCase):
         self.assertEqual(g3.cells, not_mines)
 
     def test_simple_solve(self):
-        groups = Parser.parse_game('inputs/003').groups
-        mines, not_mines = GroupSolver.solve(groups)
+        groups = parser.parse_game('inputs/003').groups
+        mines, not_mines = groups_solver.solve(groups)
 
         self.assertEqual(0, len(mines))
         self.assertEqual({(2, 1)}, not_mines)
 
     def test_no_reliable_solution(self):
-        groups = Parser.parse_game('inputs/004').groups
-        mines, not_mines = GroupSolver.solve(groups)
+        groups = parser.parse_game('inputs/004').groups
+        mines, not_mines = groups_solver.solve(groups)
 
         self.assertEqual(0, len(mines))
         self.assertEqual(0, len(not_mines))
@@ -100,8 +100,8 @@ class GroupSolverTest(unittest.TestCase):
             (7, 5)
         }
 
-        groups = Parser.parse_game('inputs/005').groups
-        mines, not_mines = GroupSolver.solve(groups)
+        groups = parser.parse_game('inputs/005').groups
+        mines, not_mines = groups_solver.solve(groups)
 
         self.assertEqual(mines_expected, mines)
         self.assertEqual(not_mines_expected, not_mines)

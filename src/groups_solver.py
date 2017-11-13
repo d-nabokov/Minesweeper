@@ -1,4 +1,4 @@
-from Group import Group
+from src.group import Group
 
 
 def operate_groups(groups):
