@@ -22,13 +22,9 @@ class GroupSolverTest(unittest.TestCase):
 
         self.assertEqual(2, len(groups))
 
-        group = groups[0]
-        self.assertEqual(1, group.w)
-        self.assertEqual({1, 2}, group.cells)
+        self.assertEqual(Group({1, 2}, 1), groups[0])
 
-        group = groups[1]
-        self.assertEqual(0, group.w)
-        self.assertEqual({3}, group.cells)
+        self.assertEqual(Group({3}, 0), groups[1])
 
     def test_intersection(self):
         g1 = Group({1, 2, 3}, 1)
@@ -38,17 +34,11 @@ class GroupSolverTest(unittest.TestCase):
 
         self.assertEqual(3, len(groups))
 
-        group = groups[0]
-        self.assertEqual(0, group.w)
-        self.assertEqual({1}, group.cells)
+        self.assertEqual(Group({1}, 0), groups[0])
 
-        group = groups[1]
-        self.assertEqual(2, group.w)
-        self.assertEqual({4, 5}, group.cells)
+        self.assertEqual(Group({4, 5}, 2), groups[1])
 
-        group = groups[2]
-        self.assertEqual(1, group.w)
-        self.assertEqual({2, 3}, group.cells)
+        self.assertEqual(Group({2, 3}, 1), groups[2])
 
     def test_get_cells(self):
         g1 = Group({1, 2, 3}, 3)
