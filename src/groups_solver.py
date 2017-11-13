@@ -50,7 +50,7 @@ def get_reliable_cells(groups):
         elif group.all_not_mines():
             not_mines |= group.cells
 
-    return mines, not_mines
+    return sorted(mines), sorted(not_mines)
 
 
 def solve(groups):
