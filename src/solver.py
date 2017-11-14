@@ -1,10 +1,10 @@
-import src.probabilities as probabilities
-import src.groups_solver as groups_solver
-import src.parser as parser
+from src import groups_solver
+from src.parser import parse_game
+from src.probabilities import get_probs
 
 
 def solve(input_file, output_file):
-    game = parser.parse_game(input_file)
+    game = parse_game(input_file)
     with open(output_file, 'wt') as fout:
         mines, not_mines = groups_solver.solve(game.groups)
         if mines or not_mines:
@@ -15,7 +15,7 @@ def solve(input_file, output_file):
             for x, y in not_mines:
                 print(x, y, file=fout)
         else:
-            probs = probabilities.get_probs(game.groups)
+            probs = get_probs(game.groups)
             # sort first by probability, then by cell (for lexicographical order)
             sorted_probs = sorted(probs.items(), key=lambda prob: (prob[1], prob[0]))
             for cell, p in sorted_probs:

@@ -1,11 +1,11 @@
 import unittest
 
-import groups_solver
-import parser
-from group import Group
+from src import groups_solver
+from src.group import Group
+from src.parser import parse_game
 
 
-class GroupSolverTest(unittest.TestCase):
+class GroupsSolverTest(unittest.TestCase):
     def test_equal_groups(self):
         g = Group({1, 2, 3}, 2)
         groups = [g, g]
@@ -55,14 +55,14 @@ class GroupSolverTest(unittest.TestCase):
         self.assertEqual(sorted(g3.cells), not_mines)
 
     def test_simple_solve(self):
-        groups = parser.parse_game('inputs/003').groups
+        groups = parse_game('inputs/003').groups
         mines, not_mines = groups_solver.solve(groups)
 
         self.assertEqual(0, len(mines))
         self.assertEqual([(2, 1)], not_mines)
 
     def test_no_reliable_solution(self):
-        groups = parser.parse_game('inputs/004').groups
+        groups = parse_game('inputs/004').groups
         mines, not_mines = groups_solver.solve(groups)
 
         self.assertEqual(0, len(mines))
@@ -90,7 +90,7 @@ class GroupSolverTest(unittest.TestCase):
             (7, 5)
         ]
 
-        groups = parser.parse_game('inputs/005').groups
+        groups = parse_game('inputs/005').groups
         mines, not_mines = groups_solver.solve(groups)
 
         self.assertEqual(mines_expected, mines)

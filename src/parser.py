@@ -1,4 +1,4 @@
-import src.config as config
+from src import config as conf
 from src.game import Game
 from src.group import Group
 
@@ -6,12 +6,12 @@ from src.group import Group
 def __create_group(field, area, w):
     cells = set()
     for i, j in area:
-        if field[i][j] == config.UNOPENED_CELL:
+        if field[i][j] == conf.UNOPENED_CELL:
             cells.add((i, j))
-        elif field[i][j] == config.MINE:
+        elif field[i][j] == conf.MINE:
             w -= 1
         # TODO remove?
-        elif field[i][j] == config.EMPTY_CELL:
+        elif field[i][j] == conf.EMPTY_CELL:
             continue
 
     # TODO check w for >= 0
@@ -48,22 +48,22 @@ def __get_groups(field, m, n):
 def parse_field(filename):
     with open(filename, 'rt') as fin:
         first_line = fin.readline()
-        m, n, mines = map(lambda x: int(x), first_line.strip().split(config.SEP))
+        m, n, mines = map(lambda x: int(x), first_line.strip().split(conf.SEP))
         # TODO check if ok
         field = [None] * m
         for i in range(m):
-            field[i] = [config.UNOPENED_CELL] * n
+            field[i] = [conf.UNOPENED_CELL] * n
         for i in range(m):
-            cells = fin.readline().strip().split(config.SEP, n)
+            cells = fin.readline().strip().split(conf.SEP, n)
             # TODO check size
             for j in range(n):
                 cell = cells[j]
-                if cell == config.UNOPENED_CELL_STR:
+                if cell == conf.UNOPENED_CELL_STR:
                     continue
-                elif cell == config.EMPTY_CELL_STR:
-                    field[i][j] = config.EMPTY_CELL
-                elif cell == config.MINE_STR:
-                    field[i][j] = config.MINE
+                elif cell == conf.EMPTY_CELL_STR:
+                    field[i][j] = conf.EMPTY_CELL
+                elif cell == conf.MINE_STR:
+                    field[i][j] = conf.MINE
                 elif cell.isdecimal():
                     num = int(cell)
                     # TODO check 1-8

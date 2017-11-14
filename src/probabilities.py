@@ -1,4 +1,4 @@
-import src.config as config
+from src import config as conf
 
 
 def __sum_ind(a, b):
@@ -23,7 +23,7 @@ def correct_probs(probs, groups):
         changed = False
         for group in groups:
             s = sum(probs[cell] for cell in group.cells)
-            if not abs(s - group.w) < config.EPS:
+            if not abs(s - group.w) < conf.EPS:
                 changed = True
                 k = group.w / s
                 for cell in group.cells:
@@ -48,9 +48,9 @@ def print_probs(probs, game):
                 cell = game.field[i][j]
                 if cell > 0:
                     print('{0:3d}(d)'.format(game.field[i][j]), end='')
-                elif cell == config.UNOPENED_CELL:
-                    print('{0:>6}'.format(config.UNOPENED_CELL_STR), end='')
-                elif cell == config.MINE:
-                    print('{0:>6}'.format(config.MINE_STR), end='')
+                elif cell == conf.UNOPENED_CELL:
+                    print('{0:>6}'.format(conf.UNOPENED_CELL_STR), end='')
+                elif cell == conf.MINE:
+                    print('{0:>6}'.format(conf.MINE_STR), end='')
 
         print('\n', end='')

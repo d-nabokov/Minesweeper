@@ -1,8 +1,8 @@
 import unittest
 
-import config
-import parser
-from group import Group
+from src import parser
+from src import config as conf
+from src.group import Group
 
 
 class ParserTest(unittest.TestCase):
@@ -26,11 +26,11 @@ class ParserTest(unittest.TestCase):
 
         for i in (0, 3):
             for j in range(3):
-                self.assertEqual(config.UNOPENED_CELL, field[i][j])
+                self.assertEqual(conf.UNOPENED_CELL, field[i][j])
 
         for i in (1, 2):
             for j in (0, 2):
-                self.assertEqual(config.UNOPENED_CELL, field[i][j])
+                self.assertEqual(conf.UNOPENED_CELL, field[i][j])
 
     def test_get_groups(self):
         expected = [
