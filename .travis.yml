@@ -1,0 +1,9 @@
+language: python
+python:
+  - "3.6"
+env:
+  - PYTHONPATH=$PYTHONPATH:../
+script:
+  - python -c 'import sys; print(sys.path)'
+  - cd test
+  - python -m unittest *.py
