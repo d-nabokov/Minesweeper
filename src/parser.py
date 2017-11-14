@@ -3,6 +3,20 @@ from src.game import Game
 from src.group import Group
 
 
+class ParseException(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+
+
+class ErrorMessages:
+    PROPERTIES = 'First line should contain 3 numbers with separators'
+    NEGATIVE_PROPERTIES = 'Numbers must be more that 0'
+    SHORT_ROW = 'Row is too short, should be {} values'
+    LOW_CORRECTED_WEIGHT = 'Number of mines in area {} is more that weight of cell'
+    UNKNOWN_SYMBOL = 'Unknown symbol "{}"'
+    WEIGHT_BOUNDS = 'Digital cell should have weight in [1, 8], actual {}'
+
+
 def __create_group(field, area, w):
     cells = set()
     for i, j in area:
@@ -10,11 +24,9 @@ def __create_group(field, area, w):
             cells.add((i, j))
         elif field[i][j] == conf.MINE:
             w -= 1
-        # TODO remove?
-        elif field[i][j] == conf.EMPTY_CELL:
-            continue
 
-    # TODO check w for >= 0
+    if w < 0:
+        raise ParseException(ErrorMessages.LOW_CORRECTED_WEIGHT.format(sorted(area)))
 
     return Group(cells, w) if len(cells) > 0 else None
 
@@ -47,15 +59,24 @@ def __get_groups(field, m, n):
 
 def parse_field(filename):
     with open(filename, 'rt') as fin:
-        first_line = fin.readline()
-        m, n, mines = map(lambda x: int(x), first_line.strip().split(conf.SEP))
-        # TODO check if ok
+        properties = fin.readline().strip().split(conf.SEP)
+        if len(properties) != 3:
+            raise ParseException(ErrorMessages.PROPERTIES)
+        try:
+            m, n, mines = map(lambda x: int(x), properties)
+        except ValueError:
+            raise ParseException(ErrorMessages.PROPERTIES)
+
+        if m <= 0 or n <= 0 or mines <= 0:
+            raise ParseException(ErrorMessages.NEGATIVE_PROPERTIES)
+
         field = [None] * m
         for i in range(m):
             field[i] = [conf.UNOPENED_CELL] * n
         for i in range(m):
-            cells = fin.readline().strip().split(conf.SEP, n)
-            # TODO check size
+            cells = fin.readline().strip().split(conf.SEP, n - 1)
+            if len(cells) != n:
+                raise ParseException(ErrorMessages.SHORT_ROW.format(n))
             for j in range(n):
                 cell = cells[j]
                 if cell == conf.UNOPENED_CELL_STR:
@@ -65,12 +86,15 @@ def parse_field(filename):
                 elif cell == conf.MINE_STR:
                     field[i][j] = conf.MINE
                 elif cell.isdecimal():
-                    num = int(cell)
-                    # TODO check 1-8
-                    field[i][j] = num
-                # TODO add mines_left
+                    # negative values are not decimal, so weight >= 0
+                    weight = int(cell)
+                    if weight < 1 or weight > 8:
+                        raise ParseException(ErrorMessages.WEIGHT_BOUNDS.format(weight))
+                    field[i][j] = weight
+                else:
+                    raise ParseException(ErrorMessages.UNKNOWN_SYMBOL.format(cell))
 
-    return field, m, n, mines
+        return field, m, n, mines
 
 
 def parse_game(filename):

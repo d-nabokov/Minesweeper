@@ -1,5 +1,6 @@
 import sys
 
+from src.parser import ParseException
 from src.solver import solve
 
 
@@ -13,6 +14,9 @@ def main():
     output_file = sys.argv[2] if argc > 2 else 'out'
     try:
         solve(input_file, output_file)
+    except ParseException as e:
+        print(e.msg)
+        return
     except FileNotFoundError:
         print('No such file')
         return
