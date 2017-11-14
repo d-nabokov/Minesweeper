@@ -7,7 +7,7 @@ from src.solver import solve
 def main():
     argc = len(sys.argv)
     if argc < 2:
-        print('Use "python minesweeper.py <input filename> [<output filename>]"')
+        print('Use "python minesweeper.py <input filename> [<output filename>=\'out\']"')
         return 
     
     input_file = sys.argv[1]
