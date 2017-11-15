@@ -1,5 +1,6 @@
 import sys
 
+from src.groups_solver import SolveException
 from src.parser import ParseException
 from src.solver import solve
 
@@ -15,6 +16,9 @@ def main():
     try:
         solve(input_file, output_file)
     except ParseException as e:
+        print(e.msg)
+        return
+    except SolveException as e:
         print(e.msg)
         return
     except FileNotFoundError:

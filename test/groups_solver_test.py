@@ -2,6 +2,7 @@ import unittest
 
 from src import groups_solver
 from src.group import Group
+from src.groups_solver import SolveException
 from src.parser import parse_game
 
 
@@ -95,3 +96,8 @@ class GroupsSolverTest(unittest.TestCase):
 
         self.assertEqual(mines_expected, mines)
         self.assertEqual(not_mines_expected, not_mines)
+
+    def test_conflict(self):
+        groups = parse_game('invalid_inputs/conflict_cells').groups
+        with self.assertRaises(SolveException):
+            groups_solver.solve(groups)

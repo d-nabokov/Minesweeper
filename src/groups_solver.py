@@ -1,6 +1,11 @@
 from src.group import Group
 
 
+class SolveException(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+
+
 def operate_groups(groups):
     result = False
 
@@ -13,12 +18,15 @@ def operate_groups(groups):
             j += 1
             g1, g2 = groups[i], groups[j]
 
-            if g1 == g2:
-                del groups[i]
-                j -= 1
-                size -= 1
-                result = True
-                continue
+            if g1.cells == g2.cells:
+                if g1.w == g2.w:
+                    del groups[i]
+                    j -= 1
+                    size -= 1
+                    result = True
+                    continue
+                else:
+                    raise SolveException('Conflict in groups, check cells near {}'.format(g1.cells))
 
             parent, child = (g1, g2) if len(g1.cells) >= len(g2.cells) else (g2, g1)
             if parent.cells >= child.cells:
