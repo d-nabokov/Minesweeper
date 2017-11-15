@@ -37,18 +37,18 @@ def do_mark(game, lines, output):
 
 def main():
     if len(sys.argv) < 3:
-        print('Use "python mark_mines.py <list_file> <game_file> [<output_file>=<game_file>]"')
+        print('Use "python mark_mines.py <game_file> <list_file> [<output_file>=<game_file>]"')
         return
 
     output = sys.argv[3] if len(sys.argv) > 3 else sys.argv[2]
 
     try:
-        game = parse_game(sys.argv[2])
+        game = parse_game(sys.argv[1])
     except ParseException as e:
         print(e.msg)
         return
 
-    with open(sys.argv[1], 'rt') as list_file:
+    with open(sys.argv[2], 'rt') as list_file:
         lines = list_file.readlines()
         if not lines:
             return
