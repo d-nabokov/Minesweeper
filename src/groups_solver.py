@@ -9,7 +9,6 @@ class SolveException(Exception):
 def operate_groups(groups):
     result = False
 
-    # wtf am i writing... These loops are gorgeous
     size = len(groups)
     i = 0
     while i < size - 1:
