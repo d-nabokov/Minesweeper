@@ -10,6 +10,9 @@ class FunctionalTest(unittest.TestCase):
     TEST_FILE = 'tmp'
 
     def test_correct_program_output(self):
+        solve('inputs/000', FunctionalTest.TEST_FILE)
+        self.assertTrue(filecmp.cmp('outputs/000', FunctionalTest.TEST_FILE, shallow=False))
+
         solve('inputs/001', FunctionalTest.TEST_FILE)
         self.assertTrue(filecmp.cmp('outputs/001', FunctionalTest.TEST_FILE, shallow=False))
 
