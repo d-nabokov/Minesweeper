@@ -1,5 +1,5 @@
 # Алгоритм, помогающий выиграть в сапёра
-[Документация по использованию](docs/howtouse.md)
+[Документация по использованию](docs/howtouse.md) / [Информация про тесты](docs/testinfo.md)
 
 [![Build status](https://travis-ci.org/Chocco-Crokko/Minesweeper.svg?branch=master)](https://travis-ci.org/Chocco-Crokko/Minesweeper)
 ## Вступление
