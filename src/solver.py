@@ -8,11 +8,11 @@ def solve(input_file, output_file):
     with open(output_file, 'wt') as fout:
         mines, not_mines = groups_solver.solve(game.groups)
         if mines or not_mines:
-            for x, y in mines:
+            for x, y in sorted(mines):
                 print(x, y, file=fout)
 
             print('-', file=fout)
-            for x, y in not_mines:
+            for x, y in sorted(not_mines):
                 print(x, y, file=fout)
         else:
             probs = get_probs(game.groups)
