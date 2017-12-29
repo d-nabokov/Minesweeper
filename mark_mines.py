@@ -40,7 +40,7 @@ def main():
         print('Use "python mark_mines.py <game_file> <list_file> [<output_file>=<game_file>]"')
         return
 
-    output = sys.argv[3] if len(sys.argv) > 3 else sys.argv[2]
+    output = sys.argv[3] if len(sys.argv) > 3 else sys.argv[1]
 
     try:
         game = parse_game(sys.argv[1])
